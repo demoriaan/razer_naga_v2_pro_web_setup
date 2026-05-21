@@ -1,0 +1,75 @@
+name: Deploy Naga Configurator
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - apps/naga-configurator/**
+      - packaging/scripts/verify-naga-configurator-site.sh
+      - .github/workflows/naga-configurator-pages.yml
+  workflow_dispatch:
+    inputs:
+      hardware_validated:
+        description: "I validated real Naga read/write/readback locally before publishing."
+        required: true
+        type: boolean
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: naga-configurator-pages
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Install Playwright Chromium
+        run: npx --yes playwright@1.60.0 install --with-deps chromium
+      - name: Verify release candidate
+        run: |
+          git diff --check
+          ./packaging/scripts/verify-naga-configurator-site.sh
+
+  deploy:
+    needs: verify
+    if: github.event_name == 'workflow_dispatch' && inputs.hardware_validated
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload static site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: apps/naga-configurator
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Smoke deployed site
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          set -euo pipefail
+          asset_base="${PAGE_URL%/}"
+          for _ in $(seq 1 20); do
+            if curl -fsS "$PAGE_URL" | grep -q "Razer Naga V2 Pro"; then
+              break
+            fi
+            sleep 3
+          done
+          curl -fsS "$PAGE_URL" | grep -q "Content-Security-Policy"
+          curl -fsS "$asset_base/naga-webhid.js" | grep -q "requestDevice"
+          curl -fsS "$asset_base/styles.css" | grep -q "Razer Naga V2 Pro configurator"
+          curl -fsS "$asset_base/site.webmanifest" | grep -q "Razer Naga V2 Pro Configurator"

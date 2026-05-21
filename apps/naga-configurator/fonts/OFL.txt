@@ -1,0 +1,19 @@
+Bundled fonts — SIL Open Font License 1.1
+==========================================
+
+This directory contains latin-subset, variable-weight WOFF2 builds of:
+
+  - Space Grotesk   (space-grotesk-latin.woff2)
+    Copyright (c) Florian Karsten.
+    https://github.com/floriankarsten/space-grotesk
+
+  - JetBrains Mono  (jetbrains-mono-latin.woff2)
+    Copyright (c) JetBrains s.r.o.
+    https://github.com/JetBrains/JetBrainsMono
+
+Both are licensed under the SIL Open Font License, Version 1.1.
+Full license text: https://openfontlicense.org
+
+They are bundled (self-hosted, no CDN) so the configurator renders identically
+on Linux — the primary platform for this tool — and so all assets stay inside
+the page with no third-party requests, matching the tool's privacy promise.

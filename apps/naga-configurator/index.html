@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Razer Naga V2 Pro Configurator</title>
+    <meta
+      name="description"
+      content="Unofficial browser-only WebHID configurator for Razer Naga V2 Pro on-board side-button bindings."
+    />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests"
+    />
+    <meta name="theme-color" content="#b4f14a" />
+    <meta property="og:title" content="Razer Naga V2 Pro Configurator" />
+    <meta
+      property="og:description"
+      content="Unofficial browser-only WebHID configurator for on-board Naga V2 Pro side-button bindings."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="./site.webmanifest" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Inline icon sprite — self-hosted, no network requests -->
+    <svg
+      class="sprite"
+      width="0"
+      height="0"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <symbol id="i-plug" viewBox="0 0 24 24">
+        <path d="M12 22v-5" />
+        <path d="M9 8V2" />
+        <path d="M15 8V2" />
+        <path d="M18 8H6v3a6 6 0 0 0 12 0z" />
+      </symbol>
+      <symbol id="i-refresh" viewBox="0 0 24 24">
+        <path d="M21 12a9 9 0 1 1-3-6.7" />
+        <path d="M21 3v6h-6" />
+      </symbol>
+      <symbol id="i-search" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="7" />
+        <path d="m21 21-4.3-4.3" />
+      </symbol>
+      <symbol id="i-trash" viewBox="0 0 24 24">
+        <path d="M3 6h18" />
+        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+        <path d="M6 6l1 14a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-14" />
+      </symbol>
+      <symbol id="i-upload" viewBox="0 0 24 24">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+        <path d="m17 8-5-5-5 5" />
+        <path d="M12 3v12" />
+      </symbol>
+      <symbol id="i-globe" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M3 12h18" />
+        <path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z" />
+      </symbol>
+      <symbol id="i-mouse" viewBox="0 0 24 24">
+        <rect x="6" y="3" width="12" height="18" rx="6" />
+        <path d="M12 7v4" />
+      </symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24">
+        <path d="M12 3 5 6v5c0 5 3 7.4 7 9 4-1.6 7-4 7-9V6z" />
+        <path d="m9 12 2 2 4-4" />
+      </symbol>
+      <symbol id="i-check" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" />
+        <path d="m8.5 12 2.5 2.5 4.5-5" />
+      </symbol>
+      <symbol id="i-window" viewBox="0 0 24 24">
+        <rect x="3" y="4" width="18" height="16" rx="2" />
+        <path d="M3 9h18" />
+        <path d="M7 6.5h.01" />
+      </symbol>
+      <symbol id="i-sliders" viewBox="0 0 24 24">
+        <path d="M4 7h10" />
+        <path d="M18 7h2" />
+        <path d="M4 17h2" />
+        <path d="M10 17h10" />
+        <circle cx="16" cy="7" r="2.4" />
+        <circle cx="8" cy="17" r="2.4" />
+      </symbol>
+      <symbol id="i-spark" viewBox="0 0 24 24">
+        <path
+          d="M12 3l2 5.5L19.5 11 14 13l-2 5.5L10 13 4.5 11 10 8.5z"
+        />
+      </symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24">
+        <rect x="5" y="11" width="14" height="9" rx="2" />
+        <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+      </symbol>
+    </svg>
+
+    <main class="shell">
+      <section id="nagaWebhid" class="tool">
+        <header class="topbar">
+          <div class="title-block">
+            <p class="eyebrow">WebHID hardware tool</p>
+            <h1>Razer Naga V2 Pro</h1>
+            <p class="subtitle">
+              Unofficial on-board side-button configurator
+            </p>
+            <div class="actions">
+              <button id="nagaConnectButton" type="button" class="primary">
+                <svg class="icon" aria-hidden="true"><use href="#i-plug" /></svg>
+                <span>Connect Naga</span>
+              </button>
+              <button id="nagaReconnectButton" type="button">
+                <svg class="icon" aria-hidden="true">
+                  <use href="#i-refresh" />
+                </svg>
+                <span>Use granted device</span>
+              </button>
+              <button id="nagaReadButton" type="button">
+                <svg class="icon" aria-hidden="true">
+                  <use href="#i-search" />
+                </svg>
+                <span>Read current settings</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Stylized top-down Naga with its signature side-button cluster -->
+          <div class="device-art" aria-hidden="true">
+            <svg viewBox="0 0 300 380" role="img">
+              <defs>
+                <radialGradient id="bodyShade" cx="50%" cy="34%" r="70%">
+                  <stop offset="0%" stop-color="#1c2218" />
+                  <stop offset="100%" stop-color="#0a0d09" />
+                </radialGradient>
+                <filter id="padGlow" x="-60%" y="-60%" width="220%" height="220%">
+                  <feGaussianBlur stdDeviation="4" result="b" />
+                  <feMerge>
+                    <feMergeNode in="b" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+
+              <!-- cable -->
+              <path
+                d="M150 28 C150 14 150 10 150 4"
+                fill="none"
+                stroke="#3a4430"
+                stroke-width="6"
+                stroke-linecap="round"
+              />
+
+              <!-- body -->
+              <path
+                d="M150 26
+                   C198 26 214 74 214 124
+                   C214 188 228 262 196 326
+                   C178 360 122 360 104 326
+                   C72 262 86 188 86 124
+                   C86 74 102 26 150 26 Z"
+                fill="url(#bodyShade)"
+                stroke="#5a6747"
+                stroke-width="2.5"
+              />
+
+              <!-- click split + scroll wheel -->
+              <path
+                d="M150 34 V150"
+                stroke="#39432e"
+                stroke-width="2"
+              />
+              <rect
+                x="142" y="64" width="16" height="40" rx="8"
+                fill="#0a0d09" stroke="#b4f14a" stroke-width="2"
+              />
+              <path
+                d="M150 74 V94"
+                stroke="#b4f14a" stroke-width="2" stroke-linecap="round"
+              />
+
+              <!-- left thumb panel -->
+              <path
+                d="M88 150 C58 150 42 164 40 198 C38 244 44 286 80 304 L94 304 L94 150 Z"
+                fill="#0c100b" stroke="#46523a" stroke-width="2"
+              />
+
+              <!-- 12-button side cluster (3 cols x 4 rows) -->
+              <g
+                filter="url(#padGlow)"
+                font-family="JetBrains Mono, monospace"
+                font-size="9"
+                text-anchor="middle"
+              >
+                <rect x="46" y="160" width="13" height="17" rx="3" fill="#22310f" stroke="#b4f14a" stroke-width="1.5"/>
+                <text x="52.5" y="172" fill="#d7ff8f">1</text>
+                <rect x="63" y="160" width="13" height="17" rx="3" fill="#22310f" stroke="#b4f14a" stroke-width="1.5"/>
+                <text x="69.5" y="172" fill="#d7ff8f">2</text>
+                <rect x="80" y="160" width="13" height="17" rx="3" fill="#22310f" stroke="#b4f14a" stroke-width="1.5"/>
+                <text x="86.5" y="172" fill="#d7ff8f">3</text>
+
+                <rect x="46" y="184" width="13" height="17" rx="3" fill="#22310f" stroke="#b4f14a" stroke-width="1.5"/>
+                <text x="52.5" y="196" fill="#d7ff8f">4</text>
+                <rect x="63" y="184" width="13" height="17" rx="3" fill="#22310f" stroke="#b4f14a" stroke-width="1.5"/>
+                <text x="69.5" y="196" fill="#d7ff8f">5</text>
+                <rect x="80" y="184" width="13" height="17" rx="3" fill="#22310f" stroke="#b4f14a" stroke-width="1.5"/>
+                <text x="86.5" y="196" fill="#d7ff8f">6</text>
+
+                <rect x="46" y="208" width="13" height="17" rx="3" fill="#22310f" stroke="#b4f14a" stroke-width="1.5"/>
+                <text x="52.5" y="220" fill="#d7ff8f">7</text>
+                <rect x="63" y="208" width="13" height="17" rx="3" fill="#22310f" stroke="#b4f14a" stroke-width="1.5"/>
+                <text x="69.5" y="220" fill="#d7ff8f">8</text>
+                <rect x="80" y="208" width="13" height="17" rx="3" fill="#22310f" stroke="#b4f14a" stroke-width="1.5"/>
+                <text x="86.5" y="220" fill="#d7ff8f">9</text>
+
+                <rect x="46" y="232" width="13" height="17" rx="3" fill="#22310f" stroke="#b4f14a" stroke-width="1.5"/>
+                <text x="52.5" y="244" fill="#d7ff8f">10</text>
+                <rect x="63" y="232" width="13" height="17" rx="3" fill="#22310f" stroke="#b4f14a" stroke-width="1.5"/>
+                <text x="69.5" y="244" fill="#d7ff8f">11</text>
+                <rect x="80" y="232" width="13" height="17" rx="3" fill="#22310f" stroke="#b4f14a" stroke-width="1.5"/>
+                <text x="86.5" y="244" fill="#d7ff8f">12</text>
+              </g>
+            </svg>
+            <p class="device-art-cap">12-button side plate shown</p>
+          </div>
+        </header>
+
+        <section
+          id="nagaCompatibilityAlert"
+          class="compat-alert pending"
+          role="status"
+          aria-live="polite"
+        >
+          <div>
+            <p id="nagaCompatibilityKicker" class="eyebrow">
+              Compatibility check
+            </p>
+            <h2 id="nagaCompatibilityTitle">Checking browser support...</h2>
+            <p id="nagaCompatibilityMessage">
+              This tool needs WebHID access before it can talk to the mouse.
+            </p>
+          </div>
+          <div
+            id="nagaCompatibilityRecommendations"
+            class="compat-recommendations"
+          ></div>
+        </section>
+
+        <section class="status-grid" aria-label="Runtime status">
+          <article>
+            <span class="stat-icon">
+              <svg class="icon" aria-hidden="true"><use href="#i-globe" /></svg>
+            </span>
+            <div>
+              <b>Browser</b>
+              <small id="nagaBrowserStatus">Checking WebHID</small>
+            </div>
+          </article>
+          <article>
+            <span class="stat-icon">
+              <svg class="icon" aria-hidden="true"><use href="#i-mouse" /></svg>
+            </span>
+            <div>
+              <b>Device</b>
+              <small id="nagaDeviceStatus">No device selected</small>
+            </div>
+          </article>
+          <article>
+            <span class="stat-icon">
+              <svg class="icon" aria-hidden="true"><use href="#i-shield" /></svg>
+            </span>
+            <div>
+              <b>Privacy</b>
+              <small>All HID reads and writes stay inside this browser tab.</small>
+            </div>
+          </article>
+        </section>
+
+        <section class="workspace">
+          <article class="panel write-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow" data-step="01">Side plate</p>
+                <h2 id="nagaPlateTitle">6-button side plate</h2>
+              </div>
+            </div>
+
+            <div
+              id="nagaPlateCards"
+              class="plate-cards"
+              role="tablist"
+              aria-label="Side plate layouts"
+            ></div>
+
+            <p id="nagaPlateValidation" class="plate-validation">
+              Readback, write, power-cycle persistence and Linux KEY_F13
+              emission validated.
+            </p>
+            <p class="plate-detection-note">
+              The mouse does not expose a validated side-plate detection report
+              yet. Pick the mounted plate here before reading or writing. The
+              app will also ask you to confirm this before it writes anything.
+            </p>
+            <div class="binding-toolbar" aria-label="Binding draft actions">
+              <button id="nagaPresetButton" type="button">
+                <svg class="icon" aria-hidden="true"><use href="#i-spark" /></svg>
+                <span>Use recommended preset</span>
+              </button>
+              <button id="nagaKeepButton" type="button">
+                <svg class="icon" aria-hidden="true"><use href="#i-lock" /></svg>
+                <span>Keep all current</span>
+              </button>
+            </div>
+            <div id="nagaBindingRows" class="binding-list"></div>
+
+            <div class="write-dock">
+              <div class="write-guards" aria-label="Write safety checks">
+                <label class="consent">
+                  <input id="nagaPlateConsent" type="checkbox" />
+                  <span>
+                    The mounted side plate matches the selected layout above.
+                  </span>
+                </label>
+                <label class="consent">
+                  <input id="nagaWriteConsent" type="checkbox" />
+                  <span>
+                    I understand this writes to the mouse's on-board profile.
+                  </span>
+                </label>
+                <small>
+                  Before writing, the app reads the current values and keeps a
+                  local backup for restore/export.
+                </small>
+              </div>
+              <button id="nagaApplyButton" type="button" class="primary apply">
+                <svg class="icon" aria-hidden="true"><use href="#i-upload" /></svg>
+                <span>Write selected bindings</span>
+              </button>
+            </div>
+          </article>
+
+          <article class="panel read-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow" data-step="02">Device truth</p>
+                <h2>Readback &amp; log</h2>
+              </div>
+              <button id="nagaClearLogButton" type="button">
+                <svg class="icon" aria-hidden="true"><use href="#i-trash" /></svg>
+                <span>Clear log</span>
+              </button>
+            </div>
+            <div class="read-actions" aria-label="Backup actions">
+              <button id="nagaExportBackupButton" type="button">
+                <svg class="icon" aria-hidden="true"><use href="#i-upload" /></svg>
+                <span>Export latest backup</span>
+              </button>
+              <button id="nagaRestoreBackupButton" type="button">
+                <svg class="icon" aria-hidden="true"><use href="#i-refresh" /></svg>
+                <span>Write backup back</span>
+              </button>
+            </div>
+            <div id="nagaReadback" class="readback">
+              <div class="readback-empty">
+                <svg class="icon" aria-hidden="true"><use href="#i-search" /></svg>
+                <b>No readback yet</b>
+                <span>Connect the Naga and run "Read current settings".</span>
+              </div>
+            </div>
+            <pre id="nagaLog" class="log">WebHID log waits for a Naga connection.</pre>
+          </article>
+        </section>
+
+        <section class="notes" aria-label="Compatibility notes">
+          <article>
+            <b>
+              <svg class="icon" aria-hidden="true"><use href="#i-check" /></svg>
+              What works now
+            </b>
+            <span>
+              The 2-button, 6-button and 12-button side plates are validated
+              for guarded readback and normal on-board writes. This project is
+              independent and not affiliated with Razer.
+            </span>
+          </article>
+          <article>
+            <b>
+              <svg class="icon" aria-hidden="true"><use href="#i-window" /></svg>
+              Browser support
+            </b>
+            <span>
+              Use Chromium, Chrome or Edge over HTTPS. On Linux, close VM USB
+              passthrough and make sure udev/hidraw permissions allow browser
+              access to the Razer HID interface.
+            </span>
+          </article>
+          <article>
+            <b>
+              <svg class="icon" aria-hidden="true"><use href="#i-sliders" /></svg>
+              Default presets
+            </b>
+            <span>
+              Keyboard, mouse, disable, double-click, media, DPI/profile cycle,
+              and scroll-mode toggle are available. Hypershift comes later.
+            </span>
+          </article>
+        </section>
+      </section>
+    </main>
+    <script src="./naga-webhid.js?v=2026-05-21-release-hardening"></script>
+  </body>
+</html>

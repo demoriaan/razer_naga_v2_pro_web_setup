@@ -1,0 +1,18 @@
+{
+  "name": "Razer Naga V2 Pro Configurator",
+  "short_name": "Naga Config",
+  "description": "Unofficial browser-only WebHID configurator for Razer Naga V2 Pro on-board side-button bindings.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#060807",
+  "theme_color": "#b4f14a",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

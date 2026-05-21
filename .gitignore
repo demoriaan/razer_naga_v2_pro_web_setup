@@ -1,0 +1,26 @@
+# Rust build output
+/target/
+
+# Local OMC/runtime state
+/.omx/
+.omc/logs/
+.omc/state/
+
+# Generated Arch packaging artifacts
+/packaging/arch/src/
+/packaging/arch/pkg/
+/packaging/arch/*.pkg.tar.zst
+/packaging/arch/*.tar.gz
+/packaging/arch/*.log
+
+# Local dogfood reports and screenshots
+/dogfood-output/
+/tmp/
+
+# Editor/OS noise
+.DS_Store
+*.swp
+*~
+
+# Local upstream reference checkouts (not part of product release)
+/references/
