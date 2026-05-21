@@ -16,7 +16,16 @@ Open the latest GitHub Pages deployment:
 
 ![Desktop preview](../../docs/previews/naga-configurator.png)
 
+<details>
+<summary>Mobile layout preview</summary>
+
+Mobile browsers are not a supported WebHID target for this hardware workflow.
+This screenshot only checks that the page layout remains readable on narrow
+screens.
+
 ![Mobile preview](../../docs/previews/naga-configurator-mobile.png)
+
+</details>
 
 ## Browser Compatibility
 
