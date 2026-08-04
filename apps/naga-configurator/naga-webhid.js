@@ -3,7 +3,7 @@
 
   const REPORT_LEN = 90;
   const NAGA_VENDOR_ID = 0x1532;
-  const NAGA_PRODUCT_IDS = [0x00a7, 0x00a8];
+  const NAGA_PRODUCT_IDS = [0x00a7, 0x00a8, 0x00b4];
   const PROFILE_DEFAULT = 0x01;
   const HYPERSHIFT_NORMAL = 0x00;
   const FEATURE_REPORT_ID = 0x00;
