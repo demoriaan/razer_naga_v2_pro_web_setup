@@ -86,8 +86,10 @@ select the mounted side plate manually before reading or writing.
 
 ## What It Can Set
 
-- Keyboard keys, including `F13`-`F24`
-- Optional modifiers: none, Ctrl, Shift, Alt, Ctrl+Shift+Alt, Meta
+- Keyboard keys, including `F13`-`F24`, Tab, arrows, tilde, punctuation,
+  navigation keys, and Escape
+- Optional modifiers: none, Ctrl, Shift, Alt, Ctrl+Shift, Alt+Shift,
+  Ctrl+Shift+Alt, Meta
 - Mouse clicks and wheel directions
 - Forward/back
 - Disabled buttons
