@@ -171,6 +171,7 @@
     alt: 0x04,
     "ctrl+shift": 0x03,
     "alt+shift": 0x06,
+    "win+ctrl": 0x09,
     "ctrl+shift+alt": 0x07,
     meta: 0x08,
   };
@@ -181,6 +182,7 @@
     0x04: "LALT",
     0x03: "LCTRL+LSHIFT",
     0x06: "LSHIFT+LALT",
+    0x09: "LGUI+LCTRL",
     0x07: "LCTRL+LSHIFT+LALT",
     0x08: "LGUI",
   };
