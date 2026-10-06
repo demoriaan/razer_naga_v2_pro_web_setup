@@ -3,7 +3,7 @@
 
   const REPORT_LEN = 90;
   const NAGA_VENDOR_ID = 0x1532;
-  const NAGA_PRODUCT_IDS = [0x00a7, 0x00a8];
+  const NAGA_PRODUCT_IDS = [0x00a7, 0x00a8, 0x00b4, 0x00e8];
   const PROFILE_DEFAULT = 0x01;
   const HYPERSHIFT_NORMAL = 0x00;
   const FEATURE_REPORT_ID = 0x00;
@@ -144,6 +144,21 @@
     8: 0x25,
     9: 0x26,
     0: 0x27,
+    Escape: 0x29,
+    Tab: 0x2b,
+    Tilde: 0x35,
+    Minus: 0x2d,
+    Equals: 0x2e,
+    Insert: 0x49,
+    Home: 0x4a,
+    PageUp: 0x4b,
+    Delete: 0x4c,
+    End: 0x4d,
+    PageDown: 0x4e,
+    ArrowRight: 0x4f,
+    ArrowLeft: 0x50,
+    ArrowDown: 0x51,
+    ArrowUp: 0x52,
     F1: 0x3a,
     F2: 0x3b,
     F3: 0x3c,
@@ -177,6 +192,9 @@
     ctrl: 0x01,
     shift: 0x02,
     alt: 0x04,
+    "ctrl+shift": 0x03,
+    "alt+shift": 0x06,
+    "win+ctrl": 0x09,
     "ctrl+shift+alt": 0x07,
     meta: 0x08,
   };
@@ -185,6 +203,9 @@
     0x01: "LCTRL",
     0x02: "LSHIFT",
     0x04: "LALT",
+    0x03: "LCTRL+LSHIFT",
+    0x06: "LSHIFT+LALT",
+    0x09: "LGUI+LCTRL",
     0x07: "LCTRL+LSHIFT+LALT",
     0x08: "LGUI",
   };

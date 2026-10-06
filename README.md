@@ -1,4 +1,4 @@
-# Razer Naga V2 Pro Web Setup
+# Razer Naga V2 Pro & Hyperspeed Web Setup
 
 Unofficial browser-only WebHID setup tool for Razer Naga V2 Pro on-board controls.
 
@@ -9,7 +9,7 @@ and Naga are used only to identify the compatible mouse model.
 
 Open the latest GitHub Pages deployment:
 
-<https://demoriaan.github.io/razer_naga_v2_pro_web_setup/>
+<https://hasselshoff.github.io/razer-naga-v2-webhid>
 
 ## Preview
 
@@ -53,7 +53,7 @@ tools that might own the receiver before connecting from the browser.
 ## How To Use
 
 1. Open the online tool in Chromium, Chrome, or Edge.
-2. Connect the Razer Naga V2 Pro receiver or cable and power on the mouse.
+2. For Razer Naga V2 Pro, connect the receiver or cable and power on the mouse.  For Razer Naga V2 Hyperspeed, which lacks a USB port, connect the receiver, power on the mouse, and toggle the onboard switch to the 2.4G mode.
 3. Click `Connect Naga` and select the Razer Naga V2 Pro in the browser device
    picker.
 4. Select the control group to configure: 2-button, 6-button, or 12-button side plate, or wheel tilt controls.
