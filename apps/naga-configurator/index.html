@@ -6,7 +6,7 @@
     <title>Razer Naga V2 Pro Configurator</title>
     <meta
       name="description"
-      content="Unofficial browser-only WebHID configurator for Razer Naga V2 Pro on-board side-button bindings."
+      content="Unofficial browser-only WebHID configurator for Razer Naga V2 Pro on-board controls."
     />
     <meta
       http-equiv="Content-Security-Policy"
@@ -16,7 +16,7 @@
     <meta property="og:title" content="Razer Naga V2 Pro Configurator" />
     <meta
       property="og:description"
-      content="Unofficial browser-only WebHID configurator for on-board Naga V2 Pro side-button bindings."
+      content="Unofficial browser-only WebHID configurator for on-board Naga V2 Pro controls."
     />
     <meta property="og:type" content="website" />
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
@@ -104,7 +104,7 @@
             <p class="eyebrow">WebHID hardware tool</p>
             <h1>Razer Naga V2 Pro</h1>
             <p class="subtitle">
-              Unofficial on-board side-button configurator
+              Unofficial on-board control configurator
             </p>
             <div class="actions">
               <button id="nagaConnectButton" type="button" class="primary">
@@ -281,7 +281,7 @@
           <article class="panel write-panel">
             <div class="panel-head">
               <div>
-                <p class="eyebrow" data-step="01">Side plate</p>
+                <p class="eyebrow" data-step="01">Control group</p>
                 <h2 id="nagaPlateTitle">6-button side plate</h2>
               </div>
             </div>
@@ -290,7 +290,7 @@
               id="nagaPlateCards"
               class="plate-cards"
               role="tablist"
-              aria-label="Side plate layouts"
+              aria-label="Configurable control groups"
             ></div>
 
             <p id="nagaPlateValidation" class="plate-validation">
@@ -298,9 +298,9 @@
               emission validated.
             </p>
             <p class="plate-detection-note">
-              The mouse does not expose a validated side-plate detection report
-              yet. Pick the mounted plate here before reading or writing. The
-              app will also ask you to confirm this before it writes anything.
+              Choose the side plate or wheel controls you want to configure.
+              The mouse does not expose validated automatic side-plate detection,
+              so the app asks you to confirm the selected control group before writing.
             </p>
             <div class="binding-toolbar" aria-label="Binding draft actions">
               <button id="nagaPresetButton" type="button">
@@ -319,7 +319,7 @@
                 <label class="consent">
                   <input id="nagaPlateConsent" type="checkbox" />
                   <span>
-                    The mounted side plate matches the selected layout above.
+                    The selected control group above is the one I intend to configure.
                   </span>
                 </label>
                 <label class="consent">
@@ -379,9 +379,10 @@
               What works now
             </b>
             <span>
-              The 2-button, 6-button and 12-button side plates are validated
-              for guarded readback and normal on-board writes. This project is
-              independent and not affiliated with Razer.
+              The 2-button, 6-button and 12-button side plates plus wheel
+              tilt left/right are validated for guarded readback and normal
+              on-board writes. This project is independent and not affiliated
+              with Razer.
             </span>
           </article>
           <article>
@@ -408,6 +409,6 @@
         </section>
       </section>
     </main>
-    <script src="./naga-webhid.js?v=2026-05-21-release-hardening"></script>
+    <script src="./naga-webhid.js?v=2026-08-05-wheel-tilt"></script>
   </body>
 </html>

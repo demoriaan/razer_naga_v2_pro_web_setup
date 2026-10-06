@@ -83,6 +83,29 @@
         { id: "pad12", label: "Pad 12", code: 0x4b, preset: "F24" },
       ],
     },
+    wheelTilt: {
+      id: "wheelTilt",
+      label: "Wheel tilt controls",
+      status: "validated",
+      buttonRange: "Buttons 0x34-0x35",
+      presetLabel: "Apply back/forward preset",
+      validation:
+        "Readback, guarded writes, readback verification, wired reconnect persistence and wireless receiver persistence validated on a Razer Naga V2 Pro.",
+      buttons: [
+        {
+          id: "wheelTiltLeft",
+          label: "Wheel tilt left",
+          code: 0x34,
+          preset: "mouse:backward",
+        },
+        {
+          id: "wheelTiltRight",
+          label: "Wheel tilt right",
+          code: 0x35,
+          preset: "mouse:forward",
+        },
+      ],
+    },
   };
   const KEYS = {
     A: 0x04,
@@ -183,6 +206,7 @@
     0x0b: "double-click",
     0x0c: "hypershift-toggle",
     0x0d: "keyboard-turbo",
+    0x0e: "mouse-repeat",
     0x12: "scroll-mode-toggle",
   };
   const MOUSE_NAMES = {
@@ -693,6 +717,10 @@
       decoded = `${MODIFIER_NAMES[modifier] || hexByte(modifier)}+${keyName}`;
     } else if (fnClass === 0x01 && value.length >= 1) {
       decoded = MOUSE_NAMES[value[0]] || `mouse-${hexByte(value[0])}`;
+    } else if (fnClass === 0x0e && value.length >= 1) {
+      const action = MOUSE_NAMES[value[0]] || `mouse-${hexByte(value[0])}`;
+      const repeatData = value.length > 1 ? ` · repeat data ${hex(value.slice(1))}` : "";
+      decoded = `${action} repeat${repeatData}`;
     } else if (fnClass === 0x0b && value.length >= 1) {
       decoded = `double-click ${MOUSE_NAMES[value[0]] || `mouse-${hexByte(value[0])}`}`;
     } else if (fnClass === 0x0a && value.length >= 2) {
@@ -951,11 +979,11 @@
     const plate = plateById(plateId);
     const backup = latestBackup();
     if (!backup) {
-      log("No backup exists for the selected side plate yet.");
+      log("No backup exists for the selected control group yet.");
       return;
     }
     if (!$("nagaPlateConsent")?.checked) {
-      log("Backup restore blocked: confirm that the mounted side plate matches the selected layout.");
+      log("Backup restore blocked: confirm the selected control group first.");
       return;
     }
     if (!$("nagaWriteConsent")?.checked) {
@@ -969,7 +997,7 @@
       })
       .filter(Boolean);
     if (!bindings.length) {
-      log("Backup restore skipped: no button rows from the backup match this plate.");
+      log("Backup restore skipped: no controls from the backup match this group.");
       return;
     }
     try {
@@ -1009,7 +1037,7 @@
   function exportLatestBackup() {
     const backup = latestBackup();
     if (!backup) {
-      log("No backup exists for the selected side plate yet.");
+      log("No backup exists for the selected control group yet.");
       return;
     }
     const payload = JSON.stringify(backup, null, 2);
@@ -1372,7 +1400,7 @@
     const plate = plateById(plateId);
     try {
       if (!$("nagaPlateConsent")?.checked) {
-        log("Write blocked: confirm that the mounted side plate matches the selected layout.");
+        log("Write blocked: confirm the selected control group first.");
         return;
       }
       if (!$("nagaWriteConsent")?.checked) {

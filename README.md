@@ -1,7 +1,6 @@
 # Razer Naga V2 Pro Web Setup
 
-Unofficial browser-only WebHID setup tool for Razer Naga V2 Pro on-board
-side-button bindings.
+Unofficial browser-only WebHID setup tool for Razer Naga V2 Pro on-board controls.
 
 This project is not affiliated with, endorsed by, or supported by Razer. Razer
 and Naga are used only to identify the compatible mouse model.
@@ -57,22 +56,17 @@ tools that might own the receiver before connecting from the browser.
 2. Connect the Razer Naga V2 Pro receiver or cable and power on the mouse.
 3. Click `Connect Naga` and select the Razer Naga V2 Pro in the browser device
    picker.
-4. Select the side plate that is physically mounted: 2-button, 6-button, or
-   12-button.
-5. Click `Read current settings` and inspect the readback. This also creates a
-   local in-tab backup for the selected plate.
-6. Leave rows as `Keep current`, choose individual bindings, or click the
-   recommended preset for the selected plate.
-7. Confirm that the mounted side plate matches the selected layout.
+4. Select the control group to configure: 2-button, 6-button, or 12-button side plate, or wheel tilt controls.
+5. Click `Read current settings` and inspect the readback. This also creates a local in-tab backup for the selected control group.
+6. Leave rows as `Keep current`, choose individual bindings, or click the recommended preset for the selected control group.
+7. Confirm that the selected control group is the one you intend to configure.
 8. Confirm that you understand the tool writes to the mouse's on-board profile.
 9. Click `Write selected bindings`.
 10. Test the physical buttons in your target application.
 
-If a write produces the wrong result, use `Write backup back` in the same tab to
-restore the latest local backup for the selected side plate. `Export latest
-backup` saves that backup as JSON for inspection or record keeping.
+If a write produces the wrong result, use `Write backup back` in the same tab to restore the latest local backup for the selected control group. `Export latest backup` saves that backup as JSON for inspection or record keeping.
 
-## Supported Side Plates
+## Supported Controls
 
 - **2-button plate:** front/forward is `0x05`, rear/back is `0x04`; the default
   preset maps them to forward/back.
@@ -80,9 +74,9 @@ backup` saves that backup as JSON for inspection or record keeping.
   to `F13`-`F16` and side 5-6 to forward/back.
 - **12-button plate:** buttons `0x40`-`0x4b`; the compatibility preset uses
   `F13`-`F19`, `Ctrl+Shift+Alt+8/9/0`, and `F23`-`F24`, avoiding `F20`-`F22`.
+- **Wheel tilt controls:** left is `0x34` and right is `0x35`; the default preset maps left to Back and right to Forward.
 
-The mouse does not expose a validated side-plate detection report yet. Always
-select the mounted side plate manually before reading or writing.
+The mouse does not expose a validated side-plate detection report yet. Always select the intended control group manually before reading or writing.
 
 ## What It Can Set
 
@@ -122,9 +116,7 @@ For manual hardware testing:
 python3 -m http.server 8000 --directory apps/naga-configurator
 ```
 
-Then open `http://127.0.0.1:8000/` in a compatible browser, connect the mouse,
-read the mounted side plate, write a harmless test binding, and verify readback
-plus a physical button press.
+Then open `http://127.0.0.1:8000/` in a compatible browser, connect the mouse, read the selected controls, write a harmless test binding, and verify readback plus a physical button press.
 
 ## Release Gate
 
