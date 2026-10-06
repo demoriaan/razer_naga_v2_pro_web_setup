@@ -9,7 +9,7 @@ and Naga are used only to identify the compatible mouse model.
 
 Open the latest GitHub Pages deployment:
 
-<https://hasselshoff.github.io/razer-naga-v2-webhid>
+<https://demoriaan.github.io/razer_naga_v2_pro_web_setup/>
 
 ## Preview
 
@@ -120,5 +120,7 @@ Then open `http://127.0.0.1:8000/` in a compatible browser, connect the mouse, r
 
 ## Release Gate
 
-Pushes run the static smoke test. The GitHub Pages deployment is manual and
-requires `hardware_validated=true` after a real Naga read/write/readback test.
+Every push to `main` runs the static smoke test and, if it passes, deploys
+the site to GitHub Pages automatically. Validate real Naga
+read/write/readback locally before pushing hardware-facing changes. A manual
+redeploy is available via `workflow_dispatch` with `hardware_validated=true`.

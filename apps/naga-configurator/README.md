@@ -10,11 +10,11 @@ and Naga are used only to identify the compatible mouse model.
 
 Open the latest GitHub Pages deployment:
 
-<https://hasselshoff.github.io/razer-naga-v2-webhid>
+<https://demoriaan.github.io/razer_naga_v2_pro_web_setup/>
 
 ## Preview
 
-![Desktop preview](docs/previews/naga-configurator.png)
+![Desktop preview](../../docs/previews/naga-configurator.png)
 
 <details>
 <summary>Mobile layout preview</summary>
@@ -23,7 +23,7 @@ Mobile browsers are not a supported WebHID target for this hardware workflow.
 This screenshot only checks that the page layout remains readable on narrow
 screens.
 
-![Mobile preview](docs/previews/naga-configurator-mobile.png)
+![Mobile preview](../../docs/previews/naga-configurator-mobile.png)
 
 </details>
 
@@ -130,5 +130,7 @@ plus a physical button press.
 
 ## Release Gate
 
-Pushes run the static smoke test. The GitHub Pages deployment is manual and
-requires `hardware_validated=true` after a real Naga read/write/readback test.
+Every push to `main` runs the static smoke test and, if it passes, deploys
+the site to GitHub Pages automatically. Validate real Naga
+read/write/readback locally before pushing hardware-facing changes. A manual
+redeploy is available via `workflow_dispatch` with `hardware_validated=true`.
