@@ -65,13 +65,20 @@ jobs:
         run: |
           set -euo pipefail
           asset_base="${PAGE_URL%/}"
+          # Read the full response before grepping: piping curl into grep -q
+          # makes curl fail with exit 23 when grep exits early under pipefail.
+          fetch_contains() {
+            local body
+            body="$(curl -fsS "$1")" && grep -qF -- "$2" <<<"$body"
+          }
           for _ in $(seq 1 20); do
-            if curl -fsS "$PAGE_URL" | grep -q "Razer Naga V2 Pro"; then
+            if fetch_contains "$PAGE_URL" "Razer Naga V2 Pro"; then
               break
             fi
             sleep 3
           done
-          curl -fsS "$PAGE_URL" | grep -q "Content-Security-Policy"
-          curl -fsS "$asset_base/naga-webhid.js" | grep -q "requestDevice"
-          curl -fsS "$asset_base/styles.css" | grep -q "Razer Naga V2 Pro configurator"
-          curl -fsS "$asset_base/site.webmanifest" | grep -q "Razer Naga V2 Pro Configurator"
+          fetch_contains "$PAGE_URL" "Razer Naga V2 Pro"
+          fetch_contains "$PAGE_URL" "Content-Security-Policy"
+          fetch_contains "$asset_base/naga-webhid.js" "requestDevice"
+          fetch_contains "$asset_base/styles.css" "Razer Naga V2 Pro configurator"
+          fetch_contains "$asset_base/site.webmanifest" "Razer Naga V2 Pro Configurator"

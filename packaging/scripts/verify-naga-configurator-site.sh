@@ -36,14 +36,17 @@ for _ in $(seq 1 40); do
   sleep 0.1
 done
 curl -fsS "http://127.0.0.1:$port/" >/dev/null
-curl -fsS "http://127.0.0.1:$port/naga-webhid.js" | grep -q 'buildKeyboardReport'
+script_js="$(curl -fsS "http://127.0.0.1:$port/naga-webhid.js")"
+grep -q 'buildKeyboardReport' <<<"$script_js"
 index_html="$(curl -fsS "http://127.0.0.1:$port/")"
 grep -q 'Content-Security-Policy' <<<"$index_html"
 grep -q 'site.webmanifest' <<<"$index_html"
 grep -q 'favicon.svg' <<<"$index_html"
 grep -q 'og:title' <<<"$index_html"
-curl -fsS "http://127.0.0.1:$port/site.webmanifest" | grep -q 'Razer Naga V2 Pro Configurator'
-curl -fsS "http://127.0.0.1:$port/favicon.svg" | grep -q '<svg'
+manifest_json="$(curl -fsS "http://127.0.0.1:$port/site.webmanifest")"
+grep -q 'Razer Naga V2 Pro Configurator' <<<"$manifest_json"
+favicon_svg="$(curl -fsS "http://127.0.0.1:$port/favicon.svg")"
+grep -q '<svg' <<<"$favicon_svg"
 test -s apps/naga-configurator/fonts/space-grotesk-latin.woff2
 test -s apps/naga-configurator/fonts/jetbrains-mono-latin.woff2
 if grep -RInE '(^|[[:space:]<])style[[:space:]]*=|(^|[[:space:]<])on[a-z]+[[:space:]]*=' \
